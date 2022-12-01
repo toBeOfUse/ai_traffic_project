@@ -24,7 +24,13 @@ def get_model():
     # test predicting output with no training to make sure layers are in place
     model.predict(next(iter(training))[0])[:1]
 
-    return model
+    model.compile(
+        optimizer=tf.keras.optimizers.Adam(learning_rate=0.00001),
+        loss=tf.keras.metrics.binary_crossentropy,
+        metrics=["binary_crossentropy"]
+    )
+
+    history = model.fit(training, epochs=5, validation_data=validation)
 
 if __name__ == "__main__":
-    get_model().summary()
+    get_model()
