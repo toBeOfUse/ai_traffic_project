@@ -1,17 +1,21 @@
 from collections import defaultdict
 from pathlib import Path
 
+collapse_left_light = True
+
 all_labels = set()
 file_labels = defaultdict(list)
 with open("./udacity-2/object-dataset/labels.csv") as label_file:
     for label in label_file:
-        comps = label.split()
+        comps = [x.strip('"') for x in label.split()]
         image_file = comps[0]
-        label = comps[6].strip('"')
+        label = comps[6]
         file_labels[image_file].append(label)
         all_labels.add(label)
         if label == "trafficLight" and len(comps) == 8:
-            sublabel = "trafficLight"+comps[7].strip('"')
+            if collapse_left_light and comps[7].endswith("Left"):
+                comps[7] = comps[7].replace("Left", "")
+            sublabel = "trafficLight"+comps[7]
             file_labels[image_file].append(sublabel)
             all_labels.add(sublabel)
 
