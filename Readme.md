@@ -6,7 +6,7 @@ This problem is not entirely sensible since Pytorch is a competitor/replacement 
 
 What we are doing is training a neural network on a multi-label classification problem; multi-label means more than one valid label is possible per input. The ideal way to do this seems to be with transfer learning, meaning that the first layers in the model are copied from another that was trained on a gigantic set of images, such as AlexNet (older, suggested by the paper) or ImageNet (newer, many TensorFlow-compatible files available.) One example of this kind of problem that seems very good is [here](https://github.com/ashrefm/multi-label-soft-f1/blob/master/Multi-Label%20Image%20Classification%20in%20TensorFlow%202.0.ipynb).
 
-We need data to train our model on. The [udacity](https://github.com/udacity/self-driving-car/tree/master/annotations) self-driving car dataset seems best; there are others listed in sources.txt. create_categories.py will read its labels and output them to a csv in a multi-hot vector form that is suitable for TensorFlow; create_datasets.py will load its images with the vectors in that csv and create TensorFlow Dataset objects for training and validation
+We need data to train our model on. The [udacity](https://github.com/udacity/self-driving-car/tree/master/annotations) self-driving car dataset seems best; there are others listed in sources.txt. create_categories.py will read its labels and output them to a csv in a multi-hot vector form that is suitable for TensorFlow; create_datasets.py will load its images with the vectors in that csv and create TensorFlow Dataset objects for training and validation. This gets us to the "Model Building" section of the example linked above.
 
 ## Notes on libraries
 
