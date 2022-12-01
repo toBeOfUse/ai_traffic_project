@@ -32,6 +32,6 @@ def get_datasets(
         crop_to_aspect_ratio=False,
     )
     if small_test:
-        return training.take(400), validation.take(100)
+        return training.take(800), validation.take(200)
     else:
         return training, validation
