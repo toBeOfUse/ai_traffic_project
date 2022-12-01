@@ -1,0 +1,13 @@
+potential sources:
+https://www.a2d2.audi/a2d2/en/download.html (very large files)
+waymo open data (the releases i found did not have the labels i wanted)
+https://www.cvlibs.net/datasets/kitti/ (object labels but not including traffic lights)
+https://github.com/scaleapi/pandaset-devkit (also no light labels)
+https://carla.readthedocs.io/en/latest/ (simulator that can be run to get images + labels automatically)
+https://www.kaggle.com/datasets/albertozorzetto/carla-densely-annotated-driving-dataset (no light labels)
+https://www.kaggle.com/datasets/alechantson/carladataset (small, has few downloads, but potentially usable although simulated)
+https://www.kaggle.com/datasets/wjybuqi/traffic-light-detection-dataset (traffic lights only)
+https://www.kaggle.com/datasets/mbornoe/lisa-traffic-light-dataset (traffic lights only)
+
+currently used sources:
+https://github.com/udacity/self-driving-car/tree/master/annotations (using release 2; download name is object-dataset)
