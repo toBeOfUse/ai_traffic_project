@@ -3,6 +3,8 @@ from pathlib import Path
 
 collapse_left_light = True
 
+# uses data from https://github.com/udacity/self-driving-car/tree/master/annotations
+
 all_labels = set()
 file_labels = defaultdict(list)
 with open("./udacity-2/object-dataset/labels.csv") as label_file:
@@ -22,7 +24,7 @@ with open("./udacity-2/object-dataset/labels.csv") as label_file:
 labels_list = sorted(all_labels)
 file_category_vectors = {}
 
-for file in Path("./udacity-2/object-dataset/smaller/images/").glob("*.jpg"):
+for file in Path("./udacity-2/object-dataset/").glob("*.jpg"):
     labels = file_labels[file.name]
     file_category_vectors[file.name] = [0]*len(labels_list)
     for label in labels:
