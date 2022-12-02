@@ -2,6 +2,22 @@ import tensorflow as tf
 import tensorflow_hub as hub
 from create_datasets import get_datasets, labels
 
+def traffic_lights_fn(y_true: tf.Tensor, y_pred: tf.Tensor):
+    """Traffic light false negative rate - percentage of traffic lights that
+    were not detected"""
+    tl_index = labels.index("trafficLight")
+    light_prediction = tf.cast(
+        tf.math.round(tf.map_fn(lambda x: x[tl_index], y_pred)),
+        tf.bool
+    )
+    light_actual = tf.cast(
+        tf.map_fn(lambda x: x[tl_index], y_true),
+        tf.bool
+    )
+    return tf.cast(
+        tf.math.logical_and(light_actual, tf.math.logical_not(light_prediction)),
+        tf.float32
+    )
 def get_model():
     # get datasets with image size (224, 224) to match imported mobilenet model
     img_size = 224
@@ -27,7 +43,7 @@ def get_model():
     model.compile(
         optimizer=tf.keras.optimizers.Adam(learning_rate=0.00001),
         loss=tf.keras.metrics.binary_crossentropy,
-        metrics=["binary_crossentropy"]
+        metrics=["binary_crossentropy", traffic_lights_fn]
     )
 
     history = model.fit(training, epochs=5, validation_data=validation)
