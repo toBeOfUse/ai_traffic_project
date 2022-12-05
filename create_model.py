@@ -3,8 +3,8 @@ import tensorflow_hub as hub
 from create_datasets import get_datasets, labels
 
 def traffic_lights_fn(y_true: tf.Tensor, y_pred: tf.Tensor):
-    """Traffic light false negative rate - percentage of traffic lights that
-    were not detected"""
+    """Traffic light false negative rate - percentage of inputs that had traffic
+    lights but the traffic light was not detected"""
     tl_index = labels.index("trafficLight")
     light_prediction = tf.cast(
         tf.math.round(tf.map_fn(lambda x: x[tl_index], y_pred)),
@@ -18,6 +18,8 @@ def traffic_lights_fn(y_true: tf.Tensor, y_pred: tf.Tensor):
         tf.math.logical_and(light_actual, tf.math.logical_not(light_prediction)),
         tf.float32
     )
+
+
 def get_model():
     # get datasets with image size (224, 224) to match imported mobilenet model
     img_size = 224
@@ -25,6 +27,7 @@ def get_model():
 
     layers = tf.keras.layers
 
+    # transfer learning
     feature_extractor_url = "https://tfhub.dev/google/imagenet/mobilenet_v2_100_224/feature_vector/4"
     feature_extractor_layer = hub.KerasLayer(
         feature_extractor_url, input_shape=(img_size, img_size, 3)
@@ -47,6 +50,8 @@ def get_model():
     )
 
     history = model.fit(training, epochs=5, validation_data=validation)
+
+    model.save("saved_model/traffic_lights")
 
 if __name__ == "__main__":
     get_model()
