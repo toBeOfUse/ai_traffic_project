@@ -31,7 +31,11 @@ def get_datasets(
         interpolation="bilinear",
         crop_to_aspect_ratio=False,
     )
+    def normalize(image, label):
+        return tf.cast(image/255, tf.float32), label
+    training = training.map(normalize)
+    validation = validation.map(normalize)
     if small_test:
-        return training.take(800), validation.take(200)
+        return training.take(200), validation.take(20)
     else:
         return training, validation
