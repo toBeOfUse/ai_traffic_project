@@ -25,7 +25,7 @@ def get_datasets(
         label_mode="categorical",
         color_mode="rgb",
         image_size=(img_size, img_size),
-        validation_split=0.8,
+        validation_split=0.2,
         seed=2**20,
         subset="both",
         interpolation="bilinear",
