@@ -23,7 +23,7 @@ def traffic_lights_fn(y_true: tf.Tensor, y_pred: tf.Tensor):
 def get_model():
     # get datasets with image size (224, 224) to match imported mobilenet model
     img_size = 224
-    training, validation = get_datasets(img_size, True)
+    training, validation = get_datasets(img_size, False)
 
     layers = tf.keras.layers
 
@@ -47,7 +47,7 @@ def get_model():
     model.compile(
         optimizer=tf.keras.optimizers.Adam(learning_rate=0.00001),
         loss=tf.keras.metrics.binary_crossentropy,
-        metrics=["binary_crossentropy", traffic_lights_fn]
+        metrics=["binary_crossentropy"]
     )
 
     history = model.fit(training, epochs=5, validation_data=validation)
