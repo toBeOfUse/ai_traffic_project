@@ -23,16 +23,15 @@ def traffic_lights_fn(y_true: tf.Tensor, y_pred: tf.Tensor):
 def get_model():
     # get datasets with image size (224, 224) to match imported mobilenet model
     img_size = 224
-    training, validation = get_datasets(img_size, False)
+    training, validation = get_datasets(img_size)
 
     layers = tf.keras.layers
 
     # transfer learning
-    feature_extractor_url = "https://tfhub.dev/google/imagenet/mobilenet_v2_100_224/feature_vector/4"
+    feature_extractor_url = "https://tfhub.dev/google/imagenet/mobilenet_v3_large_100_224/feature_vector/5"
     feature_extractor_layer = hub.KerasLayer(
-        feature_extractor_url, input_shape=(img_size, img_size, 3)
+        feature_extractor_url, input_shape=(img_size, img_size, 3), trainable=False
     )
-    feature_extractor_layer.trainable = False
 
     model = tf.keras.Sequential([
         feature_extractor_layer,
@@ -40,6 +39,7 @@ def get_model():
         layers.Dense(512, activation='relu'),
         layers.Dense(len(labels), activation='sigmoid')
     ])
+    model.summary()
 
     # test predicting output with no training to make sure layers are in place
     model.predict(next(iter(training))[0])[:1]
