@@ -36,6 +36,7 @@ def get_model():
 
     model = tf.keras.Sequential([
         feature_extractor_layer,
+        layers.Dense(1024, activation='relu'),
         layers.Dense(512, activation='relu'),
         layers.Dense(len(labels), activation='sigmoid')
     ])
