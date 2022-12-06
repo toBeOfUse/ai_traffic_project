@@ -5,12 +5,14 @@ import tensorflow as tf
 print("gathering label vectors...")
 vectors = []
 labels = []
+file_to_vector: dict[str, list[int]] = {}
 with open("category_vector.csv") as label_file:
     labels = label_file.readline().strip().split(",")[1:]
     for label_line in label_file:
-        vectors.append(list(map(int, label_line.split(",")[1:])))
+        tokens = label_line.split(",")
+        vectors.append(list(map(int, tokens[1:])))
+        file_to_vector[tokens[0]] = vectors[-1]
 print("labels:", labels)
-print("first label vector:", vectors[0])
 
 def get_datasets(
     img_size: int, small_test: bool=False
