@@ -54,7 +54,7 @@ def get_model():
         metrics=[tf.keras.metrics.BinaryAccuracy()]
     )
 
-    history = model.fit(training, epochs=8, validation_data=validation)
+    history = model.fit(training, epochs=5, validation_data=validation)
 
     timestamp = round(time.time())
     
