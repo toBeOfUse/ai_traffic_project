@@ -57,22 +57,23 @@ def get_model():
     history = model.fit(training, epochs=8, validation_data=validation)
 
     timestamp = round(time.time())
-
+    
     plt.plot(history.history['binary_accuracy'])
     plt.plot(history.history['val_binary_accuracy'])
     plt.title('model accuracy')
     plt.ylabel('binary_accuracy')
     plt.xlabel('epoch')
-    plt.legend(['train', 'val'], loc='upper left')
+    plt.legend(['training data', 'validation data'], loc='upper left')
     plt.savefig(f"accuracy-{timestamp}.png")
     # plt.show()
 
+    plt.clf()
     plt.plot(history.history['loss'])
     plt.plot(history.history['val_loss'])
     plt.title('model loss')
     plt.ylabel('loss')
     plt.xlabel('epoch')
-    plt.legend(['train', 'val'], loc='upper left')
+    plt.legend(['training data', 'validation data'], loc='upper left')
     plt.savefig(f"loss-{timestamp}.png")
     # plt.show()
 
