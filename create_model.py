@@ -36,8 +36,9 @@ def get_model():
     model = tf.keras.Sequential([
         feature_extractor_layer,
         layers.Dense(1024, activation='relu'),
-        layers.BatchNormalization(),
+        layers.Dropout(0.2),
         layers.Dense(512, activation='relu'),
+        layers.BatchNormalization(),
         layers.Dense(len(labels), activation='sigmoid')
     ])
     model.summary()
@@ -46,9 +47,8 @@ def get_model():
     model.predict(next(iter(training))[0])[:1]
 
     model.compile(
-        optimizer=tf.keras.optimizers.Adam(learning_rate=0.00005),
-        loss=tf.keras.losses.BinaryCrossentropy(),
-        metrics=["binary_crossentropy"],
+        optimizer=tf.keras.optimizers.Adam(learning_rate=0.0001),
+        loss=tf.keras.losses.BinaryCrossentropy()
     )
 
     history = model.fit(training, epochs=5, validation_data=validation)
