@@ -45,7 +45,7 @@ def get_model():
     model.predict(next(iter(training))[0])[:1]
 
     model.compile(
-        optimizer=tf.keras.optimizers.Adam(learning_rate=0.00001),
+        optimizer=tf.keras.optimizers.Adam(learning_rate=0.00005),
         loss=tf.keras.metrics.binary_crossentropy,
         metrics=["binary_crossentropy"]
     )
