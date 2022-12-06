@@ -2,3 +2,4 @@ udacity-2*
 raw_data*
 __pycache__*
 saved_model*
+*.png
