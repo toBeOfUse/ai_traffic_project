@@ -30,16 +30,10 @@ def get_model():
     layers = tf.keras.layers
 
     # transfer learning
-    # feature_extractor_url = "https://tfhub.dev/google/imagenet/mobilenet_v3_large_100_224/feature_vector/5"
-    # feature_extractor_layer = hub.KerasLayer(
-    #     feature_extractor_url, input_shape=(img_size, img_size, 3), trainable=False
-    # )
-    feature_extractor_layer = tf.keras.applications.vgg19.VGG19(
-        include_top=False,
-        weights="imagenet",
-        pooling="avg",
+    feature_extractor_url = "https://tfhub.dev/google/imagenet/mobilenet_v3_large_100_224/feature_vector/5"
+    feature_extractor_layer = hub.KerasLayer(
+        feature_extractor_url, input_shape=(img_size, img_size, 3), trainable=False
     )
-    feature_extractor_layer.trainable = False
 
     model = tf.keras.Sequential([
         feature_extractor_layer,
