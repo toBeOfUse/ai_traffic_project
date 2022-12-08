@@ -43,8 +43,10 @@ def get_model():
 
     model = tf.keras.Sequential([
         feature_extractor_layer,
+        layers.Dense(1024, activation='relu'),
+        layers.Dropout(0.2),
         layers.Dense(512, activation='relu'),
-        layers.Dense(256, activation='relu'),
+        layers.BatchNormalization(),
         layers.Dense(len(labels), activation='sigmoid')
     ])
     model.summary()
